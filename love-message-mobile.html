@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>给刘巧艳的爱</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 微信分享优化 -->
+    <meta property="og:title" content="给刘巧艳的爱">
+    <meta property="og:description" content="一份浪漫的表白">
+    <meta property="og:image" content="https://picsum.photos/300/300?random=love"> <!-- 自定义分享图片 -->
+    <meta property="og:url" content="https://你的用户名.github.io/love-message"> <!-- 替换为实际URL -->
+    <meta property="og:type" content="website">
+    
+    <!-- 配置Tailwind自定义颜色 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        love: {
+                            DEFAULT: '#FF85A2',
+                            light: '#FFB6C1',
+                            dark: '#FF69B4'
+                        }
+                    },
+                    fontFamily: {
+                        romantic: ['Segoe UI', 'Roboto', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- 自定义工具类 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .heart-beat {
+                animation: heartBeat 1.5s ease-in-out infinite;
+            }
+            .float-animation {
+                animation: float 3s ease-in-out infinite;
+            }
+        }
+        
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.1); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.1); }
+            70% { transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* 爱心背景样式 */
+        .heart {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #FF85A2;
+            transform: rotate(45deg);
+            animation: falling linear forwards;
+        }
+        
+        .heart:before,
+        .heart:after {
+            content: '';
+            width: 15px;
+            height: 15px;
+            background-color: #FF85A2;
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .heart:before {
+            top: -7.5px;
+            left: 0;
+        }
+        
+        .heart:after {
+            top: 0;
+            left: -7.5px;
+        }
+        
+        @keyframes falling {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-pink-50 to-purple-100 min-h-screen overflow-hidden flex items-center justify-center relative">
+    <!-- 爱心背景容器 -->
+    <div id="hearts-container" class="fixed inset-0 pointer-events-none"></div>
+    
+    <!-- 主内容 -->
+    <div class="relative z-10 text-center px-4 w-full">
+        <!-- 爱心框架 -->
+        <div id="heart-frame" class="opacity-0 transform scale-90 transition-all duration-1000 ease-out mt-8">
+            <div class="relative inline-block p-4 heart-beat w-full max-w-md mx-auto">
+                <!-- 顶部爱心装饰 -->
+                <div class="absolute -top-6 left-1/2 transform -translate-x-1/2">
+                    <i class="fa fa-heart text-love text-3xl float-animation"></i>
+                </div>
+                
+                <!-- 左侧爱心装饰 -->
+                <div class="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-6">
+                    <i class="fa fa-heart text-love text-xl float-animation" style="animation-delay: 0.2s"></i>
+                </div>
+                
+                <!-- 右侧爱心装饰 -->
+                <div class="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-6">
+                    <i class="fa fa-heart text-love text-xl float-animation" style="animation-delay: 0.4s"></i>
+                </div>
+                
+                <!-- 底部爱心装饰 -->
+                <div class="absolute -bottom-6 left-1/2 transform -translate-x-1/2">
+                    <i class="fa fa-heart text-love text-3xl float-animation" style="animation-delay: 0.6s"></i>
+                </div>
+                
+                <!-- 爱心框架主体 -->
+                <div class="relative bg-white/80 backdrop-blur-sm rounded-xl shadow-xl p-6 border-3 border-love-light heart-beat">
+                    <h1 class="text-[clamp(1.8rem,8vw,2.8rem)] font-romantic font-bold text-love-dark mb-3 tracking-wide">刘巧艳</h1>
+                    <h2 class="text-[clamp(1.3rem,6vw,2rem)] font-romantic italic text-love-dark tracking-wider">
+                        <span class="mr-2">Я</span>
+                        <span class="mx-2">тебя</span>
+                        <span class="ml-2">люблю</span>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 右下角水印 -->
+    <div class="fixed bottom-3 right-3 z-20 text-love/60 font-romantic text-xs md:text-sm">
+        沐峰制作
+    </div>
+    
+    <script>
+        // 创建爱心背景
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            const numberOfHearts = Math.floor(window.innerWidth / 8);
+            
+            for (let i = 0; i < numberOfHearts; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                
+                // 随机位置和样式
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.top = `${-Math.random() * 50}vh`;
+                heart.style.width = `${3 + Math.random() * 12}px`;
+                heart.style.height = `${3 + Math.random() * 12}px`;
+                heart.style.opacity = `${0.4 + Math.random() * 0.6}`;
+                heart.style.animationDuration = `${4 + Math.random() * 8}s`;
+                
+                // 随机颜色
+                const hue = 340 + Math.random() * 20; // 保持粉色系
+                const saturation = 80 + Math.random() * 20;
+                const lightness = 70 + Math.random() * 15;
+                const color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+                
+                heart.style.backgroundColor = color;
+                
+                // 设置伪元素颜色
+                const style = document.createElement('style');
+                style.textContent = `
+                    #hearts-container .heart:nth-child(${i + 1}):before,
+                    #hearts-container .heart:nth-child(${i + 1}):after {
+                        background-color: ${color};
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                container.appendChild(heart);
+                
+                // 动画结束后移除元素并重新创建
+                heart.addEventListener('animationend', () => {
+                    container.removeChild(heart);
+                    setTimeout(() => {
+                        createHearts();
+                    }, 1000);
+                });
+            }
+        }
+        
+        // 显示爱心框架
+        function showHeartFrame() {
+            const heartFrame = document.getElementById('heart-frame');
+            setTimeout(() => {
+                heartFrame.classList.remove('opacity-0', 'scale-90');
+                heartFrame.classList.add('opacity-100', 'scale-100');
+            }, 2000); // 2秒后显示框架
+        }
+        
+        // 页面加载完成后执行
+        window.addEventListener('load', () => {
+            createHearts();
+            showHeartFrame();
+            
+            // 窗口大小改变时重新生成爱心
+            window.addEventListener('resize', () => {
+                const container = document.getElementById('hearts-container');
+                container.innerHTML = '';
+                createHearts();
+            });
+        });
+    </script>
+</body>
+</html>
+    
